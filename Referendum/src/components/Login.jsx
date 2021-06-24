@@ -59,7 +59,7 @@ class Login extends Component {
   render() {
     return (
       <div className='Login-div'>
-        <header className='Login-header'>הרשמה למשעל עם</header>
+        <header className='Login-header'>הרשמה למשאל עם</header>
         <hr />
         <div className='Login-h1'>
           <h1>מספר הנייד שלך</h1>
