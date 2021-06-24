@@ -36,9 +36,9 @@ class Login extends Component {
     }
   };
 
-  checkMobileNum = () => {
+  checkMobileNum = async () => {
     // This function validates legit mobile number
-    this.setState({ number: document.getElementById('mySubmit').value });
+    await this.setState({ number: document.getElementById('mySubmit').value });
     let num = /^0(5[^7]|[2-4]|[8-9]|7[0-9])[0-9]{7}$/;
     const isRight = num.test(this.state.number); // false
     if (isRight) {
