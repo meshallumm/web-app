@@ -8,7 +8,7 @@ class Login extends Component {
       input: '',
       mobileNum: '',
       number: '',
-      errorMessage: document.getElementById('error').textContent,
+      errorMessage: document.getElementById('error'),
     };
   }
 
