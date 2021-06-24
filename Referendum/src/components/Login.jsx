@@ -26,11 +26,13 @@ class Login extends Component {
   };
 
   enterPressed = (event) => {
-    // Checking if the 'Enter' key was pressed
-    console.log('entered Pressed');
-    if (event.key === 'Enter') {
-      console.log('calling checkMobileNum');
-      this.checkMobileNum();
+    if (this.state.input !== '') {
+      // Checking if the 'Enter' key was pressed
+      console.log('entered Pressed');
+      if (event.key === 'Enter') {
+        console.log('calling checkMobileNum');
+        this.checkMobileNum();
+      }
     }
   };
 
@@ -63,6 +65,7 @@ class Login extends Component {
           <h1>מספר הנייד שלך</h1>
           <input
             type='text'
+            placeholder='...הקלד כאן'
             value={this.state.input}
             id='mySubmit'
             onChange={this.onChangeHandler.bind(this)}
