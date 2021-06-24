@@ -65,6 +65,7 @@ class Login extends Component {
           <h1>מספר הנייד שלך</h1>
           <input
             type='text'
+            autoComplete='off'
             placeholder='...הקלד כאן'
             value={this.state.input}
             id='mySubmit'
