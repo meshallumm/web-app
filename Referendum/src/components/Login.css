@@ -1,0 +1,26 @@
+.Login-div {
+  background-color: #282c34;
+  height: 100vh;
+  min-height: 100vh;
+}
+
+.Login-header {
+  text-align: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+.Login-h1 {
+  text-align: center;
+  color: white;
+  position: absolute;
+  left: 1%;
+  right: 1%;
+  top: 20%;
+}
+.mobile-num {
+  font-size: 30px;
+}
+#error {
+  color: red;
+  font-size: 4mm;
+}
