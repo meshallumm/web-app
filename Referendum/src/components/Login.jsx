@@ -47,20 +47,24 @@ class Login extends Component {
     } else this.setState({ errorMessage: 'מספר לא חוקי' });
   };
 
-  legitNum = () => {
+  legitNum = async () => {
     // Showing the number in the page
     let mobileNum = [...this.state.number];
     mobileNum.splice(3, 0, '-');
-    this.setState({
+    await this.setState({
       mobileNum,
     });
+    setTimeout(
+      function () {
+        this.props.legit(true);
+      }.bind(this),
+      1000
+    );
   };
 
   render() {
     return (
       <div className='Login-div'>
-        <header className='Login-header'>הרשמה למשאל עם</header>
-        <hr />
         <div className='Login-h1'>
           <h1>מספר הנייד שלך</h1>
           <input
