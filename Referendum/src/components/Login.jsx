@@ -7,8 +7,7 @@ class Login extends Component {
     this.state = {
       input: '',
       mobileNum: '',
-      number: '',
-      errorMessage: document.getElementById('error'),
+      errorMessage: '',
     };
   }
 
@@ -26,21 +25,19 @@ class Login extends Component {
   };
 
   enterPressed = (event) => {
-    if (this.state.input !== '') {
-      // Checking if the 'Enter' key was pressed
-      console.log('entered Pressed');
-      if (event.key === 'Enter') {
-        console.log('calling checkMobileNum');
-        this.checkMobileNum();
-      }
+    // Checking if the 'Enter' key was pressed
+    console.log('entered Pressed');
+    if (this.state.input !== '' && event.key === 'Enter') {
+      console.log('calling checkMobileNum');
+      this.checkMobileNum();
     }
   };
 
-  checkMobileNum = async () => {
+  checkMobileNum = () => {
     // This function validates legit mobile number
-    await this.setState({ number: document.getElementById('mySubmit').value });
+    const number = this.state.input;
     let num = /^0(5[^7]|[2-4]|[8-9]|7[0-9])[0-9]{7}$/;
-    const isRight = num.test(this.state.number); // false
+    const isRight = num.test(number); // false
     if (isRight) {
       this.legitNum();
       this.setState({ errorMessage: '' });
@@ -49,7 +46,7 @@ class Login extends Component {
 
   legitNum = async () => {
     // Showing the number in the page
-    let mobileNum = [...this.state.number];
+    let mobileNum = [...this.state.input];
     mobileNum.splice(3, 0, '-');
     await this.setState({
       mobileNum,
@@ -66,10 +63,12 @@ class Login extends Component {
     return (
       <div className='Login-div'>
         <h1>מספר הנייד שלך</h1>
+        {/* <span>05</span> */}
         <input
           type='text'
+          autoFocus
           autoComplete='off'
-          placeholder='...הקלד כאן'
+          placeholder='...הקלד את המספר'
           value={this.state.input}
           id='mySubmit'
           onChange={this.onChangeHandler.bind(this)}

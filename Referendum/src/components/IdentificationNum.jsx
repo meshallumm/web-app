@@ -1,17 +1,18 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import './IdentificationNum.css';
 
 const IdentNumber = () => {
-  const [idNumber, setNumber] = useState();
+  const [idNumber, setNumber] = useState('');
   const [legitlId, setID] = useState('');
-  const [errorMessage, setMessage] = useState();
-  const [activeInput, setActiveBool] = useState();
+  const [errorMessage, setMessage] = useState('');
+  const [activeInput, setActiveBool] = useState(false);
 
   useEffect(() => {
     console.log('useEffect ' + idNumber);
     if (idNumber === '') {
       console.log('Deleting message');
       setMessage('');
+      setID('');
       return;
     }
     console.log(activeInput);
@@ -68,10 +69,11 @@ const IdentNumber = () => {
 
   return (
     <div className='form-div'>
-      <h1>תעודת הזהות שלך</h1>
+      <h1 className='h1'>תעודת הזהות שלך</h1>
       <input
         className='inputStyle'
         // pattern='[0-9]{9}'
+        autoFocus
         maxLength='9'
         type='text'
         autoComplete='off'
@@ -80,7 +82,11 @@ const IdentNumber = () => {
         onChange={(event) => onChangeHandler(event)}
         onKeyPress={(event) => onKeyPress(event)}
       />{' '}
-      <br /> <button onClick={checkID}> המשך </button>
+      <br />{' '}
+      <button onClick={checkID} style={{ width: '90px' }}>
+        {' '}
+        המשך{' '}
+      </button>
       <div id='error'>{errorMessage}</div>
       <br /> <p className='revealId'> {legitlId}</p>
     </div>

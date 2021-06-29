@@ -10,7 +10,9 @@
   top: 20%;
   size: 300px;
 }
-
+.h1 {
+  color: #ffffcc;
+}
 .inputStyle {
   line-height: 2em;
 }
