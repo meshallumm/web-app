@@ -21,11 +21,11 @@ class App extends Component {
     return (
       <div className='App-div'>
         <Header />
-        {/* {this.state.askMobile ? (
+        {this.state.askMobile ? (
           <Login legit={this.askIndetinfication} />
-        ) : ( */}
-        <IdentNumber />
-        {/* // )} */}
+        ) : (
+          <IdentNumber />
+        )}
       </div>
     );
   }

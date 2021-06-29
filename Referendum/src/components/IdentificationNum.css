@@ -1,13 +1,10 @@
-.base {
+.form-div {
   background-color: #282c34;
   height: 100vh;
   min-height: 100vh;
-}
-
-.center-div {
+  position: absolute;
   text-align: center;
   color: white;
-  position: absolute;
   left: 1%;
   right: 1%;
   top: 20%;
@@ -16,8 +13,6 @@
 
 .inputStyle {
   line-height: 2em;
-  /* width: 100;
-  height: 200%; */
 }
 
 .revealId {
@@ -26,6 +21,9 @@
 }
 
 #error {
+  left: 0;
+  right: 0;
   color: red;
   font-size: 4mm;
+  position: absolute;
 }

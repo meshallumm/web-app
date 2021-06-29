@@ -65,25 +65,23 @@ class Login extends Component {
   render() {
     return (
       <div className='Login-div'>
-        <div className='Login-h1'>
-          <h1>מספר הנייד שלך</h1>
-          <input
-            type='text'
-            autoComplete='off'
-            placeholder='...הקלד כאן'
-            value={this.state.input}
-            id='mySubmit'
-            onChange={this.onChangeHandler.bind(this)}
-          />
-          <button onClick={this.checkMobileNum} style={{ width: '120px' }}>
-            {' '}
-            הירשם{' '}
-          </button>
-          <div id='error'>{this.state.errorMessage}</div>
-          <p className='mobile-num' id='mobile'>
-            {this.state.mobileNum}
-          </p>
-        </div>
+        <h1>מספר הנייד שלך</h1>
+        <input
+          type='text'
+          autoComplete='off'
+          placeholder='...הקלד כאן'
+          value={this.state.input}
+          id='mySubmit'
+          onChange={this.onChangeHandler.bind(this)}
+        />
+        <button onClick={this.checkMobileNum} style={{ width: '120px' }}>
+          {' '}
+          הירשם{' '}
+        </button>
+        <div id='error'>{this.state.errorMessage}</div>
+        <p className='mobile-num' id='mobile'>
+          {this.state.mobileNum}
+        </p>
       </div>
     );
   }
