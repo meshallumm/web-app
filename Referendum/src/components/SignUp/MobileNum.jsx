@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import './Login.css';
+import './MobileNum.css';
 
-class Login extends Component {
+class MobileNum extends Component {
   constructor(props) {
     super(props);
     this.state = {
       input: '',
       mobileNum: '',
       errorMessage: '',
+      askMobile: true,
     };
   }
 
@@ -53,7 +54,7 @@ class Login extends Component {
     });
     setTimeout(
       function () {
-        this.props.legit(true);
+        this.props.legit(1);
       }.bind(this),
       1000
     );
@@ -61,7 +62,7 @@ class Login extends Component {
 
   render() {
     return (
-      <div className='Login-div'>
+      <div>
         <h1>מספר הנייד שלך</h1>
         {/* <span>05</span> */}
         <input
@@ -86,4 +87,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default MobileNum;

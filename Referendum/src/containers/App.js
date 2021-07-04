@@ -1,31 +1,31 @@
 import React, { Component } from 'react';
-import Login from '../components/Login.jsx';
-import IdentNumber from '../components/IdentificationNum.jsx';
-import Header from './Header.jsx';
+import { BrowserRouter as Router, Redirect } from 'react-router-dom';
+import SignUp from '../components/SignUp/SignUp.jsx';
+
 import './App.css';
 
 class App extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      signInFirst: true,
+    };
   }
-  state = {
-    askMobile: true,
+
+  exitSignUpPage = (pass) => {
+    this.setState({
+      signInFirst: false,
+    });
   };
 
-  askIndetinfication = (passed) => {
-    if (passed) {
-      this.setState({ askMobile: false });
-    }
-  };
   render() {
     return (
       <div className='App-div'>
-        <Header />
-        {this.state.askMobile ? (
-          <Login legit={this.askIndetinfication} />
-        ) : (
-          <IdentNumber />
-        )}
+        <Router>
+          {this.state.signInFirst ? (
+            <SignUp homePage={this.exitSignUpPage} />
+          ) : null}
+        </Router>
       </div>
     );
   }

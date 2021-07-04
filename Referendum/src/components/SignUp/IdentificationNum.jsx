@@ -45,7 +45,7 @@ const IdentNumber = () => {
     console.log('checkID ', activeInput);
     if (idNumber.length > 0 && idNumber.length < 9) {
       setMessage('מספר ת.ז לא חוקי');
-    } else if (idNumber.length === 9) {
+    } else if (idNumber.length === 9 && idNumber !== '000000000') {
       if (is_israeli_id_number(idNumber)) {
         setID(idNumber);
         setMessage('');
