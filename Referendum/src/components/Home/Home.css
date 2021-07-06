@@ -1,0 +1,25 @@
+.home-div {
+  background-color: floralwhite;
+  height: 100vh;
+  min-height: 100vh;
+}
+
+.home-header {
+  font-size: 50px;
+  border-color: lightsteelblue;
+  color: magenta;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  height: 20%;
+  background-color: wheat;
+}
+
+.id-style {
+  padding-right: 10px;
+  color: rebeccapurple;
+  float: right;
+  /* display: 'inline'; */
+  /* display: inline-block; */
+  /* text-align: right; */
+}

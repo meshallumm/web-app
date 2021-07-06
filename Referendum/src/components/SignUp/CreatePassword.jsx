@@ -21,9 +21,18 @@ const CreatePass = (props) => {
     }
   }, [shouldUpdateMessage]);
 
-  const onClickButton = () => {
+  const onKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleClickButton();
+    }
+  };
+
+  const handleClickButton = () => {
     if (passValue.length === 4 && confirmPass.length === 0)
       textInput.current.focus();
+    else if (passValue === confirmPass && shouldUpdateMessage) {
+      props.afterSubmit();
+    }
   };
 
   const onChangeHandler = (event) => {
@@ -35,6 +44,7 @@ const CreatePass = (props) => {
     const legalPass = event.target.value.replace(/\D/g, '');
     setConfirmPass(legalPass);
   };
+
   return (
     <div className='form-div'>
       <div>
@@ -58,11 +68,12 @@ const CreatePass = (props) => {
           className='passInput'
           ref={textInput}
           onChange={(e) => onSecondChangeHandler(e)}
+          onKeyPress={(e) => onKeyPress(e)}
         />{' '}
         <br />
         <div id='notSame'>{passDontMatch}</div>
         <br />
-        <button id='continue' onClick={onClickButton} ref={buttonFocus}>
+        <button id='continue' onClick={handleClickButton} ref={buttonFocus}>
           המשך
         </button>
       </div>

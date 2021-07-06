@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './IdentificationNum.css';
 
-const IdentNumber = () => {
+const IdentNumber = (props) => {
   const [idNumber, setNumber] = useState('');
   const [legitlId, setID] = useState('');
   const [errorMessage, setMessage] = useState('');
@@ -30,7 +30,16 @@ const IdentNumber = () => {
   const onKeyPress = (event) => {
     if (event.key === 'Enter') {
       console.log('idNumber.length ' + idNumber.length);
-      checkID();
+      handleClick();
+    }
+  };
+
+  const handleClick = () => {
+    if (checkID()) {
+      setTimeout(() => {
+        props.afterSubmit();
+        props.setPersonalID(idNumber);
+      }, 500);
     }
   };
 
@@ -42,6 +51,7 @@ const IdentNumber = () => {
       setID('');
       return;
     }
+
     console.log('checkID ', activeInput);
     if (idNumber.length > 0 && idNumber.length < 9) {
       setMessage('מספר ת.ז לא חוקי');
@@ -49,6 +59,7 @@ const IdentNumber = () => {
       if (is_israeli_id_number(idNumber)) {
         setID(idNumber);
         setMessage('');
+        return true;
       }
     }
   };
@@ -83,7 +94,7 @@ const IdentNumber = () => {
         onKeyPress={(event) => onKeyPress(event)}
       />{' '}
       <br />{' '}
-      <button onClick={checkID} style={{ width: '90px' }}>
+      <button onClick={handleClick} style={{ width: '90px' }}>
         {' '}
         המשך{' '}
       </button>

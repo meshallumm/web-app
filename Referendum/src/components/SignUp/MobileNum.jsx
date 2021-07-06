@@ -45,16 +45,16 @@ class MobileNum extends Component {
     } else this.setState({ errorMessage: 'מספר לא חוקי' });
   };
 
-  legitNum = async () => {
+  legitNum = () => {
     // Showing the number in the page
     let mobileNum = [...this.state.input];
     mobileNum.splice(3, 0, '-');
-    await this.setState({
+    this.setState({
       mobileNum,
     });
     setTimeout(
       function () {
-        this.props.legit(1);
+        this.props.afterSubmit();
       }.bind(this),
       1000
     );
@@ -74,10 +74,7 @@ class MobileNum extends Component {
           id='mySubmit'
           onChange={this.onChangeHandler.bind(this)}
         />
-        <button onClick={this.checkMobileNum} style={{ width: '120px' }}>
-          {' '}
-          הירשם{' '}
-        </button>
+        <button onClick={this.checkMobileNum}> הירשם </button>
         <div id='error'>{this.state.errorMessage}</div>
         <p className='mobile-num' id='mobile'>
           {this.state.mobileNum}
