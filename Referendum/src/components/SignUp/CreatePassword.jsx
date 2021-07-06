@@ -8,15 +8,18 @@ const CreatePass = (props) => {
   const [confirmPass, setConfirmPass] = useState('');
   const [passDontMatch, setPassMessage] = useState('');
 
+  const shouldUpdateMessage =
+    passValue.length === 4 && confirmPass.length === 4;
+
   useEffect(() => {
-    if (passValue !== confirmPass) {
+    console.log('useEffect', confirmPass.length, shouldUpdateMessage);
+    if (passValue !== confirmPass && shouldUpdateMessage) {
       setPassMessage('הסיסמאות אינן שוות');
     } else {
-      console.log('passwords even');
+      console.log('reseting message - passwords less the 4 digits or are even');
       setPassMessage('');
-      buttonFocus.current.focus();
     }
-  }, [confirmPass]);
+  }, [shouldUpdateMessage]);
 
   const onClickButton = () => {
     if (passValue.length === 4 && confirmPass.length === 0)
@@ -38,16 +41,17 @@ const CreatePass = (props) => {
         {' '}
         <h1> הכנס סיסמה בעלת 4 ספרות </h1>
         <input
+          value={passValue}
           autoFocus
           type='password'
           maxLength='4'
-          value={passValue}
           onChange={(event) => onChangeHandler(event)}
           placeholder='...הכנס סיסמה'
           className='passInput'
         />
         <br />
         <input
+          value={confirmPass}
           type='password'
           maxLength='4'
           placeholder='סיסמה זהה שנית'
