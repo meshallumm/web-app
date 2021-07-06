@@ -12,23 +12,46 @@ import MobileNum from './MobileNum.jsx';
 import IdentNumber from './IdentificationNum.jsx';
 import CreatePass from './CreatePassword.jsx';
 import './SignUp.css';
-import PasswordExample from './PasswordExample.jsx';
-import JustASimpleComp from './JustASimple';
+
+import Home from '../Home/Home.jsx';
 
 class Login extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
+      stage: 1,
       askMobile: true,
+      nextPageName: '',
+      myFunction: '',
       componentArr: {
         pages: [<MobileNum />, <IdentNumber />, CreatePass],
         func: this.replaceComponent,
       },
-      nextPageName: '',
     };
+    this.signProcess = function () {};
+
     //  this.pages = [MobileNum, IdentNumber, CreatePass];
   }
 
+  signProcess = function switcher(num) {
+    switch (num) {
+      case 2:
+        return <IdentNumber afterSubmit={this.setState({ stage: 3 })} />;
+        break;
+      case 3:
+        return <CreatePass afterSubmit={this.setState({ stage: 4 })} />;
+      case 4:
+        return <Home />;
+        break;
+      default:
+        return <MobileNum afterSubmit={this.setState({ stage: 2 })} />;
+    }
+  };
+  componentDidMount() {
+    this.setState({ myFunction: this.signProcess });
+    console.log(typeof myFunction);
+  }
   // componentDidMount() {
   //   // let element = document.getElementById('tempPage').innerHTML;
   //   // console.log('element inner', element);
@@ -73,7 +96,7 @@ class Login extends Component {
         <Header />
         <div className='form-div'>
           <Route>
-            <CreatePass />
+            {this.state.myFunction}
             {/* {this.replaceComponent()} */}
           </Route>
         </div>

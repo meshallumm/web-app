@@ -1,34 +1,25 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Redirect } from 'react-router-dom';
 import SignUp from '../components/SignUp/SignUp.jsx';
+import CreatePass from '../components/SignUp/CreatePassword';
 
 import './App.css';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      signInFirst: true,
-    };
-  }
+const App = () => {
+  const [signUpFirst, setIfSignUp] = useState(true);
 
-  exitSignUpPage = (pass) => {
-    this.setState({
-      signInFirst: false,
-    });
+  const exitSignUpPage = (pass) => {
+    setIfSignUp(false);
   };
 
-  render() {
-    return (
-      <div className='App-div'>
-        <Router>
-          {this.state.signInFirst ? (
-            <SignUp homePage={this.exitSignUpPage} />
-          ) : null}
-        </Router>
-      </div>
-    );
-  }
-}
+  return (
+    <div className='App-div'>
+      <Router>
+        <CreatePass />
+        {/* {signUpFirst ? <SignUp homePage={exitSignUpPage} /> : null} */}
+      </Router>
+    </div>
+  );
+};
 
 export default App;
