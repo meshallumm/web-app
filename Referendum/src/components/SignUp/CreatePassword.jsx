@@ -1,12 +1,17 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import booleanContext from '../../containers/App';
 import './CreatePassword.css';
 
-const CreatePass = (props) => {
+const CreatePass = ({ setIfSignUp, pathsArray }) => {
   const textInput = useRef(null);
   const buttonFocus = useRef(null);
   const [passValue, setPassValue] = useState('');
   const [confirmPass, setConfirmPass] = useState('');
   const [passDontMatch, setPassMessage] = useState('');
+  const history = useHistory();
+
+  const booleanValue = useContext(booleanContext);
 
   const shouldUpdateMessage =
     passValue.length === 4 && confirmPass.length === 4;
@@ -28,10 +33,15 @@ const CreatePass = (props) => {
   };
 
   const handleClickButton = () => {
-    if (passValue.length === 4 && confirmPass.length === 0)
+    if (passValue.length === 4 && confirmPass.length === 0) {
       textInput.current.focus();
-    else if (passValue === confirmPass && shouldUpdateMessage) {
-      props.afterSubmit();
+    } else if (passValue === confirmPass && shouldUpdateMessage) {
+      //booleanValue(true);
+      //pathsArray.splice(0, pathsArray.length);
+      //console.log(pathsArray);
+
+      setIfSignUp(true);
+      history.push('/home');
     }
   };
 
@@ -47,36 +57,35 @@ const CreatePass = (props) => {
 
   return (
     <div className='form-div'>
-      <div>
-        {' '}
-        <h1> הכנס סיסמה בעלת 4 ספרות </h1>
-        <input
-          value={passValue}
-          autoFocus
-          type='password'
-          maxLength='4'
-          onChange={(event) => onChangeHandler(event)}
-          placeholder='...הכנס סיסמה'
-          className='passInput'
-        />
-        <br />
-        <input
-          value={confirmPass}
-          type='password'
-          maxLength='4'
-          placeholder='סיסמה זהה שנית'
-          className='passInput'
-          ref={textInput}
-          onChange={(e) => onSecondChangeHandler(e)}
-          onKeyPress={(e) => onKeyPress(e)}
-        />{' '}
-        <br />
-        <div id='notSame'>{passDontMatch}</div>
-        <br />
-        <button id='continue' onClick={handleClickButton} ref={buttonFocus}>
-          המשך
-        </button>
-      </div>
+      {/* {console.log('booleanValue ' + booleanValue)} */}
+      <h1> הכנס סיסמה בעלת 4 ספרות </h1>
+      <input
+        value={passValue}
+        autoFocus
+        type='password'
+        maxLength='4'
+        onChange={(event) => onChangeHandler(event)}
+        onKeyPress={(e) => onKeyPress(e)}
+        placeholder='...הכנס סיסמה'
+        className='passInput'
+      />
+      <br />
+      <input
+        value={confirmPass}
+        type='password'
+        maxLength='4'
+        placeholder='סיסמה זהה שנית'
+        className='passInput'
+        ref={textInput}
+        onChange={(e) => onSecondChangeHandler(e)}
+        onKeyPress={(e) => onKeyPress(e)}
+      />{' '}
+      <br />
+      <div id='notSame'>{passDontMatch}</div>
+      <br />
+      <button id='continue' onClick={handleClickButton} ref={buttonFocus}>
+        המשך
+      </button>
     </div>
   );
 };

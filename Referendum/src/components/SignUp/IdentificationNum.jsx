@@ -1,65 +1,76 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import './IdentificationNum.css';
 
-const IdentNumber = (props) => {
-  const [idNumber, setNumber] = useState('');
-  const [legitlId, setID] = useState('');
+const IdentNumber = ({ setPersonalID }) => {
+  const [IDNumber, setIDNumber] = useState('');
+  const [legalID, setLegalID] = useState('');
   const [errorMessage, setMessage] = useState('');
   const [activeInput, setActiveBool] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
-    console.log('useEffect ' + idNumber);
-    if (idNumber === '') {
+    console.log('useEffect ' + IDNumber);
+
+    if (IDNumber === '' || IDNumber.length < 9) {
       console.log('Deleting message');
       setMessage('');
-      setID('');
-      return;
+      setLegalID('');
     }
     console.log(activeInput);
-    if (activeInput) {
-      checkID();
+    if (IDNumber.length === 9 && activeInput) {
+      handleCheckID();
     }
-  }, [idNumber]);
+  }, [IDNumber]);
+
+  useEffect(() => {
+    return history.listen((location) => {
+      if (history.action === 'POP') {
+        console.log('POP', history.length >= 1);
+        history.goBack();
+        //history.replace('/signup/mobile');
+      }
+    });
+  }, []);
 
   const onChangeHandler = (event) => {
     //This function allowing only digits to be enterd in the input field
     const isDigits = event.target.value.replace(/\D/g, '');
-    setNumber(isDigits);
+    setIDNumber(isDigits);
   };
 
   const onKeyPress = (event) => {
     if (event.key === 'Enter') {
-      console.log('idNumber.length ' + idNumber.length);
-      handleClick();
+      console.log('IDNumber.length ' + IDNumber.length);
+      handleCheckID();
     }
   };
 
-  const handleClick = () => {
-    if (checkID()) {
-      setTimeout(() => {
-        props.afterSubmit();
-        props.setPersonalID(idNumber);
-      }, 500);
-    }
-  };
-
-  const checkID = () => {
+  const handleCheckID = () => {
     if (!activeInput) {
       setActiveBool(true);
+      console.log('activeInput set to ', activeInput);
     }
-    if (!idNumber) {
-      setID('');
+    if (!IDNumber) {
+      console.log('IDNumber has no length');
+      //setLegalID('');
       return;
     }
 
-    console.log('checkID ', activeInput);
-    if (idNumber.length > 0 && idNumber.length < 9) {
+    console.log('handleCheckID ', activeInput);
+    if (IDNumber.length > 0 && IDNumber.length < 9) {
       setMessage('מספר ת.ז לא חוקי');
-    } else if (idNumber.length === 9 && idNumber !== '000000000') {
-      if (is_israeli_id_number(idNumber)) {
-        setID(idNumber);
+    } else if (IDNumber.length === 9 && IDNumber !== '000000000') {
+      if (is_israeli_id_number(IDNumber)) {
+        setLegalID(IDNumber);
         setMessage('');
-        return true;
+        setTimeout(() => {
+          // props.afterSubmit();
+          setPersonalID(IDNumber);
+          history.push('/signup/password');
+        }, 500);
+      } else {
+        setMessage('מספר ת.ז לא חוקי');
       }
     }
   };
@@ -88,18 +99,19 @@ const IdentNumber = (props) => {
         maxLength='9'
         type='text'
         autoComplete='off'
-        value={idNumber}
+        value={IDNumber}
         id='idNum'
         onChange={(event) => onChangeHandler(event)}
         onKeyPress={(event) => onKeyPress(event)}
       />{' '}
       <br />{' '}
-      <button onClick={handleClick} style={{ width: '90px' }}>
+      <button onClick={handleCheckID} style={{ width: '90px' }}>
         {' '}
         המשך{' '}
       </button>
       <div id='error'>{errorMessage}</div>
-      <br /> <p className='revealId'> {legitlId}</p>
+      {/* <button onClick={() => history.replace('/signup/mobile')}>Back</button> */}
+      <br /> <p className='revealId'> {legalID}</p>
     </div>
   );
 };

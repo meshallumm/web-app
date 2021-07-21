@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import './MobileNum.css';
 
 class MobileNum extends Component {
@@ -54,7 +55,7 @@ class MobileNum extends Component {
     });
     setTimeout(
       function () {
-        this.props.afterSubmit();
+        this.props.history.push('/signup/idnumber');
       }.bind(this),
       1000
     );
@@ -68,6 +69,7 @@ class MobileNum extends Component {
         <input
           type='text'
           autoFocus
+          maxLength='10'
           autoComplete='off'
           placeholder='...הקלד את המספר'
           value={this.state.input}

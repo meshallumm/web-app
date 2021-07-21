@@ -1,51 +1,48 @@
-import React, { useState } from 'react';
-import {
-  BrowserRouter,
-  Redirect,
-  Route,
-  Switch,
-  useParams,
-} from 'react-router-dom';
-import SignUp from '../components/SignUp/SignUp.jsx';
-import Home from '../components/Home/Home.jsx';
+import React, { useState, useEffect, createContext } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import SignUp from '../components/SignUp/SignUp';
+import CreatePass from '../components/SignUp/CreatePassword';
+import Home from '../components/Home/Home';
+import GuardedRoute from './GuardedRoute';
+import GuestGuard from './GuestGuard';
 import './App.css';
+//localStorage.clear();
+
+const useStateWithLocalStorage = () => {
+  const [userSignedUp, setIfSignUp] = useState(
+    JSON.parse(localStorage.getItem('signUpBool'))
+  );
+  useEffect(() => {
+    localStorage.setItem('signUpBool', JSON.stringify(userSignedUp));
+    console.log(
+      'localStorage.getItem(signUpBool)',
+      JSON.parse(localStorage.getItem('signUpBool'))
+    );
+  }, [userSignedUp]);
+
+  return [userSignedUp, setIfSignUp];
+};
+
+export const booleanContext = createContext();
 
 const App = () => {
-  const [signUpFirst, setIfSignUp] = useState(true);
+  //const [userSignedUp, setIfSignUp] = useState(false);
   const [userID, setUserID] = useState('');
-
-  const welcomeToApp = () => {
-    return (
-      <Switch>
-        <Redirect to={'/home'} />
-        <Route path='/home' component={Home} />{' '}
-      </Switch>
-    );
-  };
-
-  const exitSignUpPage = () => {
-    setIfSignUp(false);
-    console.log('exitSignUpPage', signUpFirst);
-  };
+  const [userSignedUp, setIfSignUp] = useStateWithLocalStorage();
 
   return (
     <div className='App-div'>
-      <BrowserRouter>
-        <Switch>
-          <Route>
-            {signUpFirst ? (
-              <SignUp homePage={exitSignUpPage} setUserNumber={setUserID} />
-            ) : (
-              <Switch>
-                <Route path='/home'>
-                  <Home userIDNumber={userID} />
-                </Route>
-                <Redirect to={'/home'} />
-              </Switch>
-            )}
-          </Route>
-        </Switch>
-      </BrowserRouter>
+      <Switch>
+        <GuestGuard path='/signup' auth={userSignedUp}>
+          <SignUp setUserNumber={setUserID} setIfSignUp={setIfSignUp} />
+        </GuestGuard>
+        <GuardedRoute path='/home' auth={userSignedUp}>
+          <Home userIDNumber={userID} setIfSignUp={setIfSignUp} />
+        </GuardedRoute>
+        <Route excat path='/'>
+          <Redirect to='/home' />
+        </Route>
+      </Switch>
     </div>
   );
 };
