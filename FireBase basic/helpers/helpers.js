@@ -8,6 +8,13 @@ function is_israeli_id_number(id) {
 		}) % 10 === 0;
 }
 
-const num=prompt("enter 9-digit ID number!")
-const res=is_israeli_id_number(num)
-alert("ID Number is "+res)
+function numVerify(numToCheck){
+let num = /^0(5[^7]|[2-4]|[8-9]|7[0-9])[0-9]{7}$/;
+const isRight=num.test(numToCheck); // false
+return isRight;
+}
+
+module.exports(
+    numVerify,
+    is_israeli_id_number   
+)
