@@ -37,6 +37,7 @@ const IdentNumber = ({ setPersonalID }) => {
     //This function allowing only digits to be enterd in the input field
     const isDigits = event.target.value.replace(/\D/g, '');
     setIDNumber(isDigits);
+      handleCheckID();
   };
 
   const onKeyPress = (event) => {
@@ -58,7 +59,7 @@ const IdentNumber = ({ setPersonalID }) => {
     }
 
     console.log('handleCheckID ', activeInput);
-    if (IDNumber.length > 0 && IDNumber.length < 9) {
+    if (IDNumber.length > 0 && IDNumber.length < 9 ||IDNumber === '000000000' ) { 
       setMessage('מספר ת.ז לא חוקי');
     } else if (IDNumber.length === 9 && IDNumber !== '000000000') {
       if (is_israeli_id_number(IDNumber)) {
@@ -95,6 +96,7 @@ const IdentNumber = ({ setPersonalID }) => {
       <input
         className='inputStyle'
         // pattern='[0-9]{9}'
+        inputMode="numeric"//Open a numbers keyboard on the mobile 
         autoFocus
         maxLength='9'
         type='text'
@@ -104,13 +106,9 @@ const IdentNumber = ({ setPersonalID }) => {
         onChange={(event) => onChangeHandler(event)}
         onKeyPress={(event) => onKeyPress(event)}
       />{' '}
-      <br />{' '}
-      <button onClick={handleCheckID} style={{ width: '90px' }}>
-        {' '}
-        המשך{' '}
-      </button>
+      <br />{' '} 
+      <button onClick={() => history.replace('/signup/mobile')}>חזור</button>
       <div id='error'>{errorMessage}</div>
-      {/* <button onClick={() => history.replace('/signup/mobile')}>Back</button> */}
       <br /> <p className='revealId'> {legalID}</p>
     </div>
   );

@@ -68,6 +68,7 @@ class MobileNum extends Component {
         {/* <span>05</span> */}
         <input
           type='text'
+          inputMode="numeric"
           autoFocus
           maxLength='10'
           autoComplete='off'
