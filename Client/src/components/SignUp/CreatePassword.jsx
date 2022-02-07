@@ -41,7 +41,7 @@ const CreatePass = ({ setIfSignUp, pathsArray }) => {
       //console.log(pathsArray);
 
       setIfSignUp(true);
-      history.push('/home');
+      // history.push('/home');
     }
   };
 

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './Home.css';
-
+import MessageConfirmation from '../SignUp/MessageConfirmation.jsx'
 const Home = ({ userIDNumber, setIfSignUp }) => {
   const history = useHistory();
   const [userID, setUserID] = useState(userIDNumber);
+  const [messageConfirmation, setMessageConfirmation]= useState(false)
   const onExitHandler = () => {
     localStorage.clear();
     setIfSignUp(false);
@@ -40,11 +41,11 @@ const Home = ({ userIDNumber, setIfSignUp }) => {
     <div className='home-div'>
       <header className='home-header'>משאל עם</header>
       <div style={{ textAlign: 'center' }}>
-        <h2 style={{ marginRight: '-90px', display: 'inline-block' }}>
-          ...בקרוב
-        </h2>
+       
         <h3 className='id-style'>{userID}</h3>
         <br />
+        {!messageConfirmation?<MessageConfirmation setMessageConfirmation={setMessageConfirmation}/>:
+        <h1>Hello</h1>}
         <button onClick={onExitHandler}> יציאה</button>
       </div>
     </div>
