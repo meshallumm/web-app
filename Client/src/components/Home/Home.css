@@ -23,3 +23,11 @@
   /* display: inline-block; */
   /* text-align: right; */
 }
+.btn{
+cursor: pointer;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  border: 1px solid red;
+  color: black;
+}
