@@ -6,9 +6,7 @@ import Home from '../components/Home/Home';
 import GuardedRoute from './GuardedRoute';
 import GuestGuard from './GuestGuard';
 import './App.css';
-import MishaalAm from '../components/Home/Mishaal-Am'
-import Petitions from '../components/Home/Petitions'
-import Surveys from '../components/Home/Surveys'
+
 //localStorage.clear();
 
 const useStateWithLocalStorage = () => {
@@ -36,35 +34,15 @@ const App = () => {
   return (
     <div className='App-div'>
       <Switch>
-        <GuestGuard path='/signup' auth={userSignedUp}>
-          <SignUp setUserNumber={setUserID} setIfSignUp={setIfSignUp} />
-        </GuestGuard>
-        <GuardedRoute path='/home' auth={userSignedUp}>
-          <Home userIDNumber={userID} setIfSignUp={setIfSignUp} />
-          {/* <Petitions path='/home/Petitions' component={Petitions}/>
-         
-        <Route path='/home/Mishaal-Am' component={MishaalAm}/> */}
-        
-        {/* <Redirect to='/Home' />
-          <Switch>
-            <Route path={'/Home/Petitions'} component={Petitions} />
-            <Route path={'/Home/Mishaal-Am'} component={MishaalAm}/> 
-            <Route path={'/Home/Surveys'} component={Surveys}/>      
-          </Switch>      */}
-        </GuardedRoute>
-         
-        {/* <Route excat path='/'>
-          <Redirect to='/home/Mishaal-Am' />
-          </Route> 
-          <Route excat path='/'>
-          <Redirect to='/home/Petitions' />
-        </Route> */}
-        {/* <Route excat path='/'>
-          <Redirect to='/home' />
-          <Route path='/home/Petitions' component={Petitions}/>
-          
-          <Route path='/home/Mishaal-Am' component={MishaalAm}/>
-        </Route> */}
+        <Route excat path='/'>
+          <Redirect to='/signup' />
+          <GuestGuard path='/signup' auth={userSignedUp}>
+            <SignUp setUserNumber={setUserID} setIfSignUp={setIfSignUp} />
+          </GuestGuard>
+          <GuardedRoute path='/home' auth={userSignedUp}>
+            <Home userIDNumber={userID} setIfSignUp={setIfSignUp} />
+          </GuardedRoute>
+        </Route>
       </Switch>
     </div>
   );
