@@ -7,7 +7,7 @@ function GuardedRoute({ children, auth, path, ...rest }) {
     <Route
       path={path}
       render={() => {
-        return auth ? children : <Redirect to='/signup' />;
+        return auth ? children : <Redirect to='/home' />;
       }}
     />
   );
