@@ -18,6 +18,8 @@ const Home = ({ userIDNumber, setIfSignUp }) => {
     setIfSignUp(false);
   };
 
+  
+
   useEffect(() => {
     //setIfSignUp(false);
     if (userIDNumber.length) {
@@ -27,6 +29,7 @@ const Home = ({ userIDNumber, setIfSignUp }) => {
       setUserID(JSON.parse(localStorage.getItem("userID")));
       console.log("userID", userID);
     }
+ 
   }, []);
 
   useEffect(() => {
