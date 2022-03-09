@@ -111,7 +111,9 @@
 
 .links
 {
-	
+	display: none;
+	text-align: center;
+	color: #777;
 }
 
 .info
