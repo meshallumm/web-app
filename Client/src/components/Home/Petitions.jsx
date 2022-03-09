@@ -1,5 +1,6 @@
 import React from 'react';
 import pic from './files/01.jpg';
+import './Petitions.css';
 
 function Petition()
 {
