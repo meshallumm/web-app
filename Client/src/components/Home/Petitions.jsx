@@ -1,19 +1,19 @@
 import React from 'react';
-import pic from './files/01.jpg';
+import pic1 from './files/01.jpg';
 import './Petitions.css';
 
-function Petition()
+function Petition(props)
 {
   return(
     <div className='petition'>
 
       <div className='subject'>
-        <h3>subject of the petition</h3>
+        <h3>{props.subject}</h3>
 				<i class="material-icons">more_vert</i>
       </div>
 
       <div className='photos'>
-        <img src={pic} alt="photo"></img>
+        <img src={pic1} alt="photo"></img>
       </div>
 
       <div className='progress'>
@@ -48,7 +48,9 @@ function PetitionsContainer()
 {
   return(
     <div className='petitions'>
-      <Petition />
+      <Petition 
+      subject="the subject of the petition"
+      />
     </div>
   )
 }
